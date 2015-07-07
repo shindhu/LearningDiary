@@ -158,7 +158,7 @@ public class BooksManager {
 	 
 	
 	// find books by keyword (Title of the book)
-	public List<Books> findBooksByTitle( String theName) throws IOException, SQLException {
+	public List<Books> findBooksByKeyword( int theUserID, String theName, String theNotes) throws IOException, SQLException {
 		
 		List<Books> theFilteredBooks = new ArrayList<Books>();
 		Connection connection = null;
@@ -168,14 +168,17 @@ public class BooksManager {
 
 			connection = ds.getConnection();
 			PreparedStatement ps = connection
-					.prepareStatement("select id, image, name, book_format, notes from books where upper(name) like upper(?)");
-			ps.setString(1, "%" + theName + "%");
+					.prepareStatement("select * from books where user_id = ? and (upper(name) like upper(?) or upper(notes) like upper(?))");
+			ps.setInt(1,theUserID );
+			ps.setString(2, "%" + theName + "%");
+			ps.setString(3, "%" + theNotes + "%");
 			/*ps.setString(2, "%" + theNotes + "%");*/
 			
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
 				theFilteredBooks.add(new Books(resultSet.getInt("id"),
+											resultSet.getInt("user_id"),
 											resultSet.getString("image"),
 											resultSet.getString("name"),
 											resultSet.getString("book_format"),
@@ -203,7 +206,7 @@ public class BooksManager {
 	}
 
 	// find books by keyword (from book notes)
-		public List<Books> findBooksByNotes( String theNotes) throws IOException, SQLException {
+		/*public List<Books> findBooksByNotes( int theUserID, String theNotes) throws IOException, SQLException {
 			
 			List<Books> theFilteredBooks = new ArrayList<Books>();
 			Connection connection = null;
@@ -213,14 +216,16 @@ public class BooksManager {
 
 				connection = ds.getConnection();
 				PreparedStatement ps = connection
-						.prepareStatement("select id, image, name, book_format, notes from books where  upper(notes) like upper(?)");
-				ps.setString(1, "%" + theNotes + "%");
-				/*ps.setString(2, "%" + theNotes + "%");*/
+						.prepareStatement("select * from books where user_id=? and upper(notes) like upper(?)");
+				ps.setInt(1,theUserID);
+				ps.setString(2, "%" + theNotes + "%");
+				
 				
 				ResultSet resultSet = ps.executeQuery();
 
 				while (resultSet.next()) {
 					theFilteredBooks.add(new Books(resultSet.getInt("id"),
+												resultSet.getInt("user_id"),
 												resultSet.getString("image"),
 												resultSet.getString("name"),
 												resultSet.getString("book_format"),
@@ -244,7 +249,7 @@ public class BooksManager {
 			}
 			
 			return theFilteredBooks;
-		}
+		}*/
 		
 	// get books with book id and user_id
 	public Books getBookWithBookID (int theID, int theUserID) throws SQLException {

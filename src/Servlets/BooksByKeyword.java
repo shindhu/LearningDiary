@@ -40,32 +40,36 @@ public class BooksByKeyword extends HttpServlet {
 		List<Books> searchBooks = null;
 		String filteredBooks;
 		String theName = request.getParameter("name");
-		//String theNotes = request.getParameter("notes");
 		
-		try {
-			filteredBooks = request.getParameter("search");
-			if(filteredBooks != null && filteredBooks.equals("name"))
-			{
-				searchBooks = bm.findBooksByTitle(theName);
-			} else {
-				searchBooks = bm.findBooksByNotes(theName);
-			}
-			
+		Boolean loggedInBoolean = (Boolean) session.getAttribute("isLoggedIn");
+		if(loggedInBoolean != null) {
+			boolean loggedIn = loggedInBoolean.booleanValue();
+			if(loggedIn) {
+				int user_id = (Integer) session.getAttribute("user_id");
+				try {
+					/*filteredBooks = request.getParameter("search");
+					if(filteredBooks != null && filteredBooks.equals("name"))
+					{
+						searchBooks = bm.findBooksByTitle(user_id, theName);
+					} else {
+						searchBooks = bm.findBooksByNotes(user_id, theName);
+					}*/
+					searchBooks = bm.findBooksByKeyword(user_id, theName, theName);
 				
-			System.out.println("Filtered Books are: "+ searchBooks);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			url="/LearningDiary/books";
+					System.out.println("Filtered Books are: "+ searchBooks);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					url="/LearningDiary/books";
+				}
+			}
 		}
+				
 		
 		if(searchBooks != null) {
 			request.setAttribute("theFilteredBook", searchBooks);
-		} /*else {
-			request.setAttribute("Empty_filteredBooks", "OOOPs can't find....");
-		}*/
-		
+		} 
 		if(searchBooks.isEmpty()) {
-			request.setAttribute("Empty_filteredBooks", "OOOPs you dont have any book called.."+theName);
+			request.setAttribute("Empty_filteredBooks", "OOOPs you dont have book as...."+theName);
 		}
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 		

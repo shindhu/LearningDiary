@@ -63,10 +63,10 @@
 										<form action = "/LearningDiary/booksByKeyword" class="navbar-form navbar-left" name="search" method="get">
 											<div class="form-group">
 												<input name="name" value="${param.name }" type="text" style="width: 500px; font-size: medium;"class="form-control" placeholder="Search">
-												<select name="search">
+												<!-- <select name="search">
 													<option value="name">Find By Title</option>
 													<option value="notes">Find By Notes</option>
-												</select>
+												</select> -->
 												<input class="btn btn-default btn-md" type="submit" value="search ">
 												
 											</div>

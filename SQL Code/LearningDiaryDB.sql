@@ -129,8 +129,12 @@ select name from books;
 select * from books where book_format like '%Kindle%';
 
 -- like syntax
-select * from books where upper(name) like upper('%what%') ;
+select * from books where user_id = 3 and upper(name) like upper('%what%') ;
+select * from books where user_id = 7 and upper(notes) like upper('%analysis%') ;
 
+select * from books where user_id = 7 and (upper(name) like upper('%analysis%') or upper(notes) like upper('%analysis%'));
+
+select * from users;
 
 -- prints the category name by category_id in books table
 select category.id, category.name from category

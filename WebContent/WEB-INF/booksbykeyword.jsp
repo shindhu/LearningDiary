@@ -12,7 +12,7 @@
 	<div class="table-responsive" id="outerbody" >
 	
 	<table class="table table-bordered">
-	<h4 style="color:red">${Empty_filteredBooks }</h4>
+	<h4 style="color:red">"${Empty_filteredBooks }"</h4>
 		<tr>
 			<th>ID</th>
 			<th>Image</th>
