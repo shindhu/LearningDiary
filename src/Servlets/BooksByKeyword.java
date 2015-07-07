@@ -40,7 +40,7 @@ public class BooksByKeyword extends HttpServlet {
 		List<Books> searchBooks = null;
 		String filteredBooks;
 		String theName = request.getParameter("name");
-		String theNotes = request.getParameter("notes");
+		//String theNotes = request.getParameter("notes");
 		
 		try {
 			filteredBooks = request.getParameter("search");
@@ -48,7 +48,7 @@ public class BooksByKeyword extends HttpServlet {
 			{
 				searchBooks = bm.findBooksByTitle(theName);
 			} else {
-				searchBooks = bm.findBooksByNotes(theNotes);
+				searchBooks = bm.findBooksByNotes(theName);
 			}
 			
 				
@@ -60,8 +60,12 @@ public class BooksByKeyword extends HttpServlet {
 		
 		if(searchBooks != null) {
 			request.setAttribute("theFilteredBook", searchBooks);
-		} else {
+		} /*else {
 			request.setAttribute("Empty_filteredBooks", "OOOPs can't find....");
+		}*/
+		
+		if(searchBooks.isEmpty()) {
+			request.setAttribute("Empty_filteredBooks", "OOOPs you dont have any book called.."+theName);
 		}
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 		

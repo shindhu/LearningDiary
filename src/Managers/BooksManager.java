@@ -162,12 +162,13 @@ public class BooksManager {
 		
 		List<Books> theFilteredBooks = new ArrayList<Books>();
 		Connection connection = null;
+		System.out.println("The Name in filter is: "+theName);
 
 		try {
 
 			connection = ds.getConnection();
 			PreparedStatement ps = connection
-					.prepareStatement("select id, image, name, book_format, notes from books where  name like ?");
+					.prepareStatement("select id, image, name, book_format, notes from books where upper(name) like upper(?)");
 			ps.setString(1, "%" + theName + "%");
 			/*ps.setString(2, "%" + theNotes + "%");*/
 			
@@ -177,8 +178,9 @@ public class BooksManager {
 				theFilteredBooks.add(new Books(resultSet.getInt("id"),
 											resultSet.getString("image"),
 											resultSet.getString("name"),
-											resultSet.getString("book_fromat"),
+											resultSet.getString("book_format"),
 											resultSet.getString("notes") ));
+				
 			}
 			resultSet.close();
 			ps.close();
@@ -205,12 +207,13 @@ public class BooksManager {
 			
 			List<Books> theFilteredBooks = new ArrayList<Books>();
 			Connection connection = null;
-
+			System.out.println("The Name Notes in filter is: "+theNotes);
+			
 			try {
 
 				connection = ds.getConnection();
 				PreparedStatement ps = connection
-						.prepareStatement("select id, image, name, book_format, notes from books where  notes like ?");
+						.prepareStatement("select id, image, name, book_format, notes from books where  upper(notes) like upper(?)");
 				ps.setString(1, "%" + theNotes + "%");
 				/*ps.setString(2, "%" + theNotes + "%");*/
 				
@@ -220,7 +223,7 @@ public class BooksManager {
 					theFilteredBooks.add(new Books(resultSet.getInt("id"),
 												resultSet.getString("image"),
 												resultSet.getString("name"),
-												resultSet.getString("book_fromat"),
+												resultSet.getString("book_format"),
 												resultSet.getString("notes") ));
 				}
 				resultSet.close();

@@ -63,10 +63,10 @@ public class SignupServlet extends HttpServlet {
 					request.getSession().setAttribute("username", username);
 					request.getSession().setAttribute("email", email);
 					request.getSession().setAttribute("user_id", newUser.getId());
-					
+					request.getSession().setAttribute("capName", newUser.getCapitalizedUsername());
 					//request.setAttribute("user_id", newUser.get);
 					request.setAttribute("id", newUser.getId());
-					request.setAttribute("capName", newUser.getCapitalizedUsername());
+					//request.setAttribute("capName", newUser.getCapitalizedUsername());
 					request.setAttribute("email", email);
 					getServletContext().getRequestDispatcher("/WEB-INF/main.jsp").forward(request, response);
 				} else {

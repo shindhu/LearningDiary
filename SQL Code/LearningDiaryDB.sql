@@ -4,12 +4,11 @@ SET SCHEMA APP;
 CREATE TABLE USERS (ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
 					USERNAME VARCHAR(50) NOT NULL UNIQUE,
 					PASSWORD VARCHAR(20) NOT NULL,
-					EMAIL VARCHAR (50) NOT NULL,
-					SECURITY_QUESTION VARCHAR(200) NOT NULL,
-					SEC_QUES_ANSWER VARCHAR(100) NOT NULL );
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, SECURITY_QUESTION, SEC_QUES_ANSWER) VALUES ('admin','admin','admin@learningdiary.com', 'What''s your pet name?', 'janu'); --1
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, SECURITY_QUESTION, SEC_QUES_ANSWER) VALUES ('shindhu','abc','shindhu@learningdiary.com','My favorite color', 'black'); --2
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, SECURITY_QUESTION, SEC_QUES_ANSWER) VALUES ('john','abc','john@learningdiary.com', 'what''s my home town ?','trichy'); --3
+					EMAIL VARCHAR (50) NOT NULL
+					);
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('admin','admin','admin@learningdiary.com'); --1
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('shindhu','abc','shindhu@learningdiary.com'); --2
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('john','abc','john@learningdiary.com'); --3
 SELECT * FROM USERS;
 
 select password from users  where sec_ques_answer = lower('JANU');
@@ -130,7 +129,7 @@ select name from books;
 select * from books where book_format like '%Kindle%';
 
 -- like syntax
-select * from books where name like '%what%' ;
+select * from books where upper(name) like upper('%what%') ;
 
 
 -- prints the category name by category_id in books table

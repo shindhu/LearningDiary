@@ -10,8 +10,9 @@
 	<c:import url="/WEB-INF/navbar.jsp"></c:import>
 	
 	<div class="table-responsive" id="outerbody" >
-	${Empty_filteredBooks }
+	
 	<table class="table table-bordered">
+	<h4 style="color:red">${Empty_filteredBooks }</h4>
 		<tr>
 			<th>ID</th>
 			<th>Image</th>
@@ -20,7 +21,7 @@
 			<th>Notes</th>
 		</tr>
 		
-		  <c:out value="${theFilteredBook }"> </c:out>
+		  <%-- <c:out value="${theFilteredBook }"> </c:out> --%>
 		  <c:forEach items="${theFilteredBook }" var="book"> 
 			<tr>	
 				<td>${book.id }</td>
